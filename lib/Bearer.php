@@ -18,7 +18,8 @@ class Bearer extends SparkAPI_Core implements SparkAPI_AuthInterface
         parent::__construct();
     }
 
-    function sign_request($request) {
+    function sign_request($request)
+    {
         $this->SetHeader('Authorization', 'Bearer '. $this->access_token);
         $this->SetHeader('X-SparkApi-User-Agent', 'Thinkery');
 
@@ -28,5 +29,11 @@ class Bearer extends SparkAPI_Core implements SparkAPI_AuthInterface
         $request['cacheable_query_string'] = $request['query_string'];
 
         return $request;
+    }
+
+    public function is_auth_request($request)
+    {
+        // this should always be false since we're getting credentials preset
+        return false;
     }
 }
